@@ -33,7 +33,7 @@ jobs:
         run: ./gradlew :mcp-client-example:run --console=plain
       - name: Run the plain-Java gateway example
         run: ./gradlew :plain-java-gateway:run --console=plain
-      - name: Run the LangChain4j example (no key: lists its tools)
+      - name: Run the LangChain4j example (without a key it lists its tools)
         run: ./gradlew :langchain4j-example:run --console=plain
       - name: Upload test reports
         if: failure()
