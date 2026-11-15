@@ -114,6 +114,8 @@ async function runStep(stepId: string, button: HTMLButtonElement) {
   button.textContent = "Running…";
   clearPanel("Running…");
   $("count").textContent = "0";
+  // One column (narrow screens, the docs' iframe): the panel is below the chapter, so bring it into view.
+  if (matchMedia("(max-width: 1100px)").matches) $("summary").scrollIntoView({ behavior: "smooth", block: "start" });
   try {
     if (stepId in AGUI_PROMPTS && source.mode === "live") {
       await liveChat(stepId, AGUI_PROMPTS[stepId]);

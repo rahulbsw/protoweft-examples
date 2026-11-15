@@ -5,7 +5,7 @@ same agent over **MCP, UTCP, A2A, RAP and AG-UI**, and a browser page walks thro
 chapter. Each ▶ Run calls the app with Protoweft's own clients, and the right-hand panel shows the
 real HTTP traffic: JSON-RPC, SSE streams and RAP callbacks.
 
-**Try it without installing anything:** http://github.datasierra.com/protoweft-examples/ plays
+**Try it without installing anything:** https://github.datasierra.com/protoweft-examples/ plays
 recordings of every step (replay mode).
 
 | Chapter | What you run |
@@ -61,7 +61,7 @@ from `frontend/public/replay/`, and the top bar says **Replay**. If the app stop
 using the page, a banner offers to switch to replay.
 
 - `.github/workflows/pages.yml` publishes it on every change to `main`, at
-  http://github.datasierra.com/protoweft-examples/.
+  https://github.datasierra.com/protoweft-examples/.
 - `cd tour/frontend && npm run build:pages` builds the replay-only site into `frontend/dist`, with
   relative paths, so any static host and base path work.
 - The recordings are made by `RecordReplayTest` with the scripted model. Ids, tokens, ports and
