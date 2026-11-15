@@ -11,7 +11,7 @@ you need, or (once Protoweft is on Maven Central) start from one of its standalo
 
 | Example | What it shows | Needs an LLM key to run? |
 |---|---|---|
-| [`tour`](tour) | **Start here.** A browser tutorial and live demo: one app serving MCP, UTCP, A2A, RAP and AG-UI, with every step's real wire traffic shown next to the code. Also published as a replay on GitHub Pages. | No (a scripted model; a real one is optional) |
+| [`tour`](tour) | **Start here.** A browser tutorial and live demo: one app serving MCP, UTCP, A2A, RAP and AG-UI, with every step's real wire traffic shown next to the code. Also [published as a replay](http://github.datasierra.com/protoweft-examples/) on GitHub Pages. | No (a scripted model; a real one is optional) |
 | [`mcp-client-example`](mcp-client-example) | Calls a bundled stdio MCP server through `McpClientConnector` and prints its `ComplianceReport`. | No |
 | [`plain-java-gateway`](plain-java-gateway) | One tool and one agent served over MCP, UTCP, A2A and RAP from an embedded Jetty server, and called back through one `ToolRegistry`, including a RAP subscription. | No |
 | [`spring-boot-example`](spring-boot-example) | `@AgentTool` beans served over MCP and UTCP, and an agent over A2A, by `protoweft-spring-boot-starter`, with bearer-token auth and Actuator. | No |
