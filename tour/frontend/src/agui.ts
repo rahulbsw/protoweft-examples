@@ -19,6 +19,13 @@ function applyTheme(color: string): string {
 
 const pause = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+/** Adds streamed text to a reply; a reply stays hidden until it has visible text (models often start with newlines). */
+function append(el: HTMLElement, delta: string) {
+  el.dataset.raw = (el.dataset.raw ?? "") + delta;
+  el.textContent = el.dataset.raw.trim();
+  el.hidden = !el.textContent;
+}
+
 /** The AG-UI chapter's chat: live through @ag-ui/client, or rebuilt from a recording. */
 export class Chat {
   private agent = new HttpAgent({ url: "/agui" });
@@ -34,6 +41,12 @@ export class Chat {
     return div;
   }
 
+  private reply(): HTMLElement {
+    const el = this.bubble("assistant", "");
+    el.hidden = true;
+    return el;
+  }
+
   /** Sends a message to the live agent and answers its set_theme calls until nothing is pending. */
   async send(text: string): Promise<void> {
     this.bubble("user", text);
@@ -42,8 +55,8 @@ export class Chat {
       const texts = new Map<string, HTMLElement>();
       const calls = new Map<string, HTMLElement>();
       await this.agent.runAgent({ tools: [setTheme] }, {
-        onTextMessageStartEvent: ({ event }) => { texts.set(event.messageId, this.bubble("assistant", "")); },
-        onTextMessageContentEvent: ({ event }) => { texts.get(event.messageId)!.textContent += event.delta; },
+        onTextMessageStartEvent: ({ event }) => { texts.set(event.messageId, this.reply()); },
+        onTextMessageContentEvent: ({ event }) => { append(texts.get(event.messageId)!, event.delta); },
         onToolCallStartEvent: ({ event }) => { calls.set(event.toolCallId, this.bubble("tool", `⚙ ${event.toolCallName}(…)`)); },
         onToolCallResultEvent: ({ event }) => {
           const card = calls.get(event.toolCallId);
@@ -77,8 +90,8 @@ export class Chat {
         if (!data) continue;
         const ev = JSON.parse(data);
         switch (ev.type) {
-          case "TEXT_MESSAGE_START": texts.set(ev.messageId, this.bubble("assistant", "")); break;
-          case "TEXT_MESSAGE_CONTENT": texts.get(ev.messageId)!.textContent += ev.delta; await pause(60); break;
+          case "TEXT_MESSAGE_START": texts.set(ev.messageId, this.reply()); break;
+          case "TEXT_MESSAGE_CONTENT": append(texts.get(ev.messageId)!, ev.delta); await pause(60); break;
           case "TOOL_CALL_START": calls.set(ev.toolCallId, { el: this.bubble("tool", `⚙ ${ev.toolCallName}(…)`), name: ev.toolCallName }); break;
           case "TOOL_CALL_RESULT": {
             const call = calls.get(ev.toolCallId);
