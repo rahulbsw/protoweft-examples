@@ -36,7 +36,7 @@ public class TourApplication {
         String line = "─".repeat(58);
         log.info("\n┌{}┐\n│  Protoweft Tour is running → open {}{}│\n│  Model: {}{}│\n│  Press Ctrl+C to stop.{}│\n└{}┘",
                 line, url, pad(35 + url.length()), model.describe(), pad(9 + model.describe().length()),
-                pad(22), line);
+                pad(23), line);
     }
 
     private static String pad(int used) {

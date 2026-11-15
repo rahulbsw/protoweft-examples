@@ -11,6 +11,7 @@ you need, or (once Protoweft is on Maven Central) start from one of its standalo
 
 | Example | What it shows | Needs an LLM key to run? |
 |---|---|---|
+| [`tour`](tour) | **Start here.** A browser tutorial and live demo: one app serving MCP, UTCP, A2A, RAP and AG-UI, with every step's real wire traffic shown next to the code. Also published as a replay on GitHub Pages. | No (a scripted model; a real one is optional) |
 | [`mcp-client-example`](mcp-client-example) | Calls a bundled stdio MCP server through `McpClientConnector` and prints its `ComplianceReport`. | No |
 | [`plain-java-gateway`](plain-java-gateway) | One tool and one agent served over MCP, UTCP, A2A and RAP from an embedded Jetty server, and called back through one `ToolRegistry`, including a RAP subscription. | No |
 | [`spring-boot-example`](spring-boot-example) | `@AgentTool` beans served over MCP and UTCP, and an agent over A2A, by `protoweft-spring-boot-starter`, with bearer-token auth and Actuator. | No |
@@ -25,11 +26,13 @@ model.
 ## Requirements
 
 - Java 17 or newer (the Gradle wrapper is included).
-- Node 20+ only for the `agui-web` browser page.
+- Node 20+ only for the `tour` and `agui-web` browser pages.
 
 ## Build and run
 
 ```bash
+./tour/run.sh                              # the tour: then open http://localhost:8080
+
 ./gradlew build                            # compile and test every example
 
 ./gradlew :mcp-client-example:run          # MCP client against a bundled stdio server
@@ -43,7 +46,7 @@ export OPENAI_API_KEY=sk-...               # for the LLM-backed examples (any Op
 ./gradlew :agui-web:bootRun                # build the page first, see agui-web/README.md
 ```
 
-The Spring Boot, Spring AI, ARGI and AG-UI examples each have a README with what to try against
+The tour, Spring Boot, Spring AI, ARGI and AG-UI examples each have a README with what to try against
 them (curl, the MCP Inspector, and so on).
 
 ## Using an OpenAI-compatible server

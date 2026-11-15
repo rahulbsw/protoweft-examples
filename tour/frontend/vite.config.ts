@@ -2,7 +2,7 @@ import { defineConfig, type Plugin } from "vite";
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 
-const SOURCES = join(__dirname, "../src/main");
+const SOURCES = join(import.meta.dirname, "../src/main");
 
 /** Every file under a directory, recursively. */
 function files(dir: string): string[] {
@@ -44,7 +44,7 @@ function snippets(): Plugin {
           } else if (name && /(?:\/\/|#) tour:end/.test(line)) {
             out[name] = {
               lang: file.endsWith(".java") ? "java" : "yaml",
-              file: relative(join(__dirname, ".."), file),
+              file: relative(join(import.meta.dirname, ".."), file),
               code: dedent(block),
             };
             name = null;
