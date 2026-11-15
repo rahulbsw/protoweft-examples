@@ -46,6 +46,27 @@ export OPENAI_API_KEY=sk-...               # for the LLM-backed examples (any Op
 The Spring Boot, Spring AI, ARGI and AG-UI examples each have a README with what to try against
 them (curl, the MCP Inspector, and so on).
 
+## Using an OpenAI-compatible server
+
+The LLM-backed examples use OpenAI's API, so any OpenAI-compatible server works: Ollama, LiteLLM,
+vLLM, an LLM router, and so on. Set the base URL **including `/v1`**:
+
+```bash
+export OPENAI_API_KEY=...                          # whatever the server expects (any value for Ollama)
+export OPENAI_MODEL=llama3.1                       # a model the server offers that supports tool calls
+export OPENAI_BASE_URL=http://localhost:11434/v1               # LangChain4j
+export SPRING_AI_OPENAI_BASE_URL=http://localhost:11434/v1     # Spring AI, ARGI and AG-UI examples
+```
+
+Spring AI 2.x calls `<base-url>/chat/completions`, so a base URL without `/v1` reaches the wrong
+path. Some servers answer a streaming request on that path with a web page rather than an error.
+Spring AI then reads it as an empty stream, and the agent fails with
+`conversationId cannot be null`. That error means the model call returned nothing: check the base
+URL first.
+
+Pick a model that does tool calls and answers quickly. The A2A client in the LangChain4j example
+waits 60 seconds for the whole answer, and a tool round is at least two model calls.
+
 ## Protoweft version
 
 The examples use `protoweft-bom` at the version in [`gradle.properties`](gradle.properties)

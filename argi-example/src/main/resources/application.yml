@@ -5,7 +5,7 @@ spring:
     openai:
       # Empty means "no key": the application still starts, model calls are rejected.
       api-key: ${OPENAI_API_KEY:}
-      # base-url: http://localhost:11434   # any OpenAI-compatible server, e.g. Ollama
+      # base-url: http://localhost:11434/v1   # any OpenAI-compatible server, e.g. Ollama (keep the /v1)
       chat:
         options:
           model: ${OPENAI_MODEL:gpt-4o-mini}
