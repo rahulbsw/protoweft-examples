@@ -3,7 +3,9 @@
   "private": true,
   "description": "The Protoweft Tour page: a tutorial and live demo of MCP, UTCP, A2A, RAP and AG-UI.",
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
@@ -15,6 +17,7 @@
     "marked": "18.2.0"
   },
   "devDependencies": {
+    "@types/node": "20.19.43",
     "typescript": "7.0.2",
     "vite": "8.3.8"
   }
