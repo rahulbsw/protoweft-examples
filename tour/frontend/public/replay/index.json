@@ -1,0 +1,72 @@
+{
+  "model" : "scripted",
+  "steps" : [ {
+    "id" : "intro.endpoints",
+    "chapter" : "intro",
+    "title" : "Check all five endpoints"
+  }, {
+    "id" : "mcp.connect",
+    "chapter" : "mcp",
+    "title" : "Connect"
+  }, {
+    "id" : "mcp.list",
+    "chapter" : "mcp",
+    "title" : "List the tools"
+  }, {
+    "id" : "mcp.call",
+    "chapter" : "mcp",
+    "title" : "Call a tool"
+  }, {
+    "id" : "utcp.manual",
+    "chapter" : "utcp",
+    "title" : "Read the manual"
+  }, {
+    "id" : "utcp.call",
+    "chapter" : "utcp",
+    "title" : "Call a tool"
+  }, {
+    "id" : "a2a.card",
+    "chapter" : "a2a",
+    "title" : "Read the agent card"
+  }, {
+    "id" : "a2a.ask",
+    "chapter" : "a2a",
+    "title" : "Ask the agent"
+  }, {
+    "id" : "a2a.followup",
+    "chapter" : "a2a",
+    "title" : "Ask a follow-up"
+  }, {
+    "id" : "rap.toolset",
+    "chapter" : "rap",
+    "title" : "Read the toolset"
+  }, {
+    "id" : "rap.call",
+    "chapter" : "rap",
+    "title" : "Call a tool"
+  }, {
+    "id" : "rap.subscribe",
+    "chapter" : "rap",
+    "title" : "Subscribe to updates"
+  }, {
+    "id" : "agui.chat",
+    "chapter" : "agui",
+    "title" : "Chat with the agent"
+  }, {
+    "id" : "agui.theme",
+    "chapter" : "agui",
+    "title" : "Let the agent call the page's tool"
+  }, {
+    "id" : "registry.list",
+    "chapter" : "registry",
+    "title" : "One registry, four protocols"
+  }, {
+    "id" : "registry.call",
+    "chapter" : "registry",
+    "title" : "Call through every protocol"
+  }, {
+    "id" : "registry.compliance",
+    "chapter" : "registry",
+    "title" : "Compare compliance reports"
+  } ]
+}

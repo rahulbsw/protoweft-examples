@@ -1,0 +1,109 @@
+{
+  "stepId" : "mcp.call",
+  "ok" : true,
+  "summary" : "temperature(city=Oslo) → 12.0",
+  "data" : "12.0",
+  "error" : null,
+  "exchanges" : [ {
+    "seq" : 1,
+    "protocol" : "MCP",
+    "direction" : "request",
+    "method" : "POST",
+    "path" : "/mcp",
+    "status" : 200,
+    "requestHeaders" : {
+      "accept" : "application/json, text/event-stream",
+      "content-type" : "application/json; charset=utf-8",
+      "mcp-protocol-version" : "2025-11-25"
+    },
+    "requestBody" : "{\"id\":\"00000002-0\",\"jsonrpc\":\"2.0\",\"method\":\"initialize\",\"params\":{\"capabilities\":{},\"clientInfo\":{\"name\":\"protoweft\",\"version\":\"0.1.0\"},\"protocolVersion\":\"2025-11-25\"}}",
+    "responseHeaders" : {
+      "content-type" : "application/json;charset=UTF-8",
+      "mcp-session-id" : "00000000-0000-4000-8000-000000000001"
+    },
+    "responseBody" : "{\"id\":\"00000002-0\",\"jsonrpc\":\"2.0\",\"result\":{\"capabilities\":{\"logging\":{},\"tools\":{\"listChanged\":false}},\"protocolVersion\":\"2025-11-25\",\"serverInfo\":{\"name\":\"weather\",\"version\":\"0.1.0\"}}}",
+    "durationMs" : 0,
+    "complete" : true
+  }, {
+    "seq" : 2,
+    "protocol" : "MCP",
+    "direction" : "request",
+    "method" : "GET",
+    "path" : "/mcp",
+    "status" : 200,
+    "requestHeaders" : {
+      "accept" : "text/event-stream",
+      "mcp-protocol-version" : "2025-11-25",
+      "mcp-session-id" : "00000000-0000-4000-8000-000000000001"
+    },
+    "requestBody" : "",
+    "responseHeaders" : {
+      "content-type" : "text/event-stream;charset=UTF-8"
+    },
+    "responseBody" : "",
+    "durationMs" : 0,
+    "complete" : true
+  }, {
+    "seq" : 3,
+    "protocol" : "MCP",
+    "direction" : "request",
+    "method" : "POST",
+    "path" : "/mcp",
+    "status" : 202,
+    "requestHeaders" : {
+      "accept" : "application/json, text/event-stream",
+      "content-type" : "application/json; charset=utf-8",
+      "mcp-protocol-version" : "2025-11-25",
+      "mcp-session-id" : "00000000-0000-4000-8000-000000000001"
+    },
+    "requestBody" : "{\"jsonrpc\":\"2.0\",\"method\":\"notifications/initialized\"}",
+    "responseHeaders" : { },
+    "responseBody" : "",
+    "durationMs" : 0,
+    "complete" : true
+  }, {
+    "seq" : 4,
+    "protocol" : "MCP",
+    "direction" : "request",
+    "method" : "POST",
+    "path" : "/mcp",
+    "status" : 200,
+    "requestHeaders" : {
+      "accept" : "application/json, text/event-stream",
+      "content-type" : "application/json; charset=utf-8",
+      "mcp-protocol-version" : "2025-11-25",
+      "mcp-session-id" : "00000000-0000-4000-8000-000000000001"
+    },
+    "requestBody" : "{\"id\":\"00000002-1\",\"jsonrpc\":\"2.0\",\"method\":\"tools/call\",\"params\":{\"arguments\":{\"city\":\"Oslo\"},\"name\":\"temperature\"}}",
+    "responseHeaders" : {
+      "content-type" : "text/event-stream;charset=UTF-8"
+    },
+    "responseBody" : "id: 00000000-0000-4000-8000-000000000001\nevent: message\ndata:{\"id\":\"00000002-1\",\"jsonrpc\":\"2.0\",\"result\":{\"content\":[{\"text\":\"12.0\",\"type\":\"text\"}],\"isError\":false}}\n\n",
+    "durationMs" : 0,
+    "complete" : true
+  }, {
+    "seq" : 5,
+    "protocol" : "MCP",
+    "direction" : "request",
+    "method" : "DELETE",
+    "path" : "/mcp",
+    "status" : 200,
+    "requestHeaders" : {
+      "mcp-protocol-version" : "2025-11-25",
+      "mcp-session-id" : "00000000-0000-4000-8000-000000000001"
+    },
+    "requestBody" : "",
+    "responseHeaders" : { },
+    "responseBody" : "",
+    "durationMs" : 0,
+    "complete" : true
+  } ],
+  "compliance" : [ {
+    "protocol" : "MCP",
+    "sdk" : "io.modelcontextprotocol.sdk:mcp 2.1.0",
+    "wireRevisions" : [ "2025-03-26", "2025-06-18", "2025-11-25" ],
+    "negotiated" : "2025-11-25",
+    "supported" : [ "completion", "content/audio", "content/image", "content/resource", "content/resource-link", "content/text", "lifecycle/version-negotiation", "logging", "progress", "prompts", "prompts/list-changed", "resources", "resources/list-changed", "resources/subscribe", "tools/call", "tools/list", "tools/list-changed", "tools/structured-output", "transport/streamable-http" ],
+    "unsupported" : [ "authorization", "cancellation", "elicitation", "roots", "sampling", "transport/sse", "transport/stateless-http", "transport/stdio" ]
+  } ]
+}

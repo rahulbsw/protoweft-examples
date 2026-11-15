@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Protoweft Tour: MCP, UTCP, A2A, RAP and AG-UI in Java</title>
+  <meta name="description" content="A hands-on tour of the agent protocols MCP, UTCP, A2A, RAP and AG-UI with Protoweft, the protocol backbone for Java agents. Run each step and watch the real wire traffic.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M8 1l7 7-7 7-7-7z' fill='%2314b8a6'/></svg>">
+</head>
+<body>
+  <header class="top">
+    <a class="logo" href="#/intro">◆ Protoweft <span>Tour</span></a>
+    <span id="counter" class="counter"></span>
+    <span class="spacer"></span>
+    <span id="model" class="model"></span>
+    <span id="mode" class="mode"></span>
+    <a class="gh" href="https://github.com/rahulbsw/protoweft" target="_blank" rel="noopener">GitHub ↗</a>
+  </header>
+  <div id="replay-note" class="replay-note" hidden>
+    You're watching real traffic recorded from the tour app. To run it live on your machine:
+    <code>git clone https://github.com/rahulbsw/protoweft-examples &amp;&amp; cd protoweft-examples &amp;&amp; ./tour/run.sh</code>
+  </div>
+  <div id="banner" class="banner" hidden></div>
+  <div class="layout">
+    <nav id="nav"></nav>
+    <main id="chapter"><div id="loading" class="hint">Loading the tour…</div></main>
+    <aside class="panel">
+      <div id="summary" class="summary-slot"></div>
+      <div class="tabs">
+        <button data-tab="wire" class="on">Wire traffic <span id="count" class="count">0</span></button>
+        <button data-tab="details">Result</button>
+        <button data-tab="compliance">Compliance</button>
+      </div>
+      <div id="wire" class="wire"></div>
+      <div id="details" class="details" hidden></div>
+      <div id="compliance" class="details" hidden></div>
+    </aside>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

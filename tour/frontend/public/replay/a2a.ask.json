@@ -1,0 +1,56 @@
+{
+  "stepId" : "a2a.ask",
+  "ok" : true,
+  "summary" : "Task COMPLETED: It's 12.0 °C in Oslo right now.",
+  "data" : {
+    "contextId" : "00000000-0000-4000-8000-000000000001",
+    "state" : "COMPLETED",
+    "taskId" : "00000000-0000-4000-8000-000000000002",
+    "text" : "It's 12.0 °C in Oslo right now."
+  },
+  "error" : null,
+  "exchanges" : [ {
+    "seq" : 1,
+    "protocol" : "A2A",
+    "direction" : "request",
+    "method" : "GET",
+    "path" : "/.well-known/agent-card.json",
+    "status" : 200,
+    "requestHeaders" : {
+      "content-type" : "application/json"
+    },
+    "requestBody" : "",
+    "responseHeaders" : {
+      "content-type" : "application/json"
+    },
+    "responseBody" : "{\"capabilities\":{\"extendedAgentCard\":false,\"pushNotifications\":true,\"streaming\":true},\"defaultInputModes\":[\"text/plain\",\"application/json\"],\"defaultOutputModes\":[\"text/plain\",\"application/json\"],\"description\":\"Answers weather questions with Protoweft tools\",\"name\":\"Weather agent\",\"preferredTransport\":\"JSONRPC\",\"skills\":[{\"description\":\"Current temperature and forecasts for a city\",\"id\":\"weather\",\"name\":\"Weather\",\"tags\":[\"weather\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"JSONRPC\",\"protocolVersion\":\"1.0\",\"url\":\"http://localhost:8080/a2a\"}],\"version\":\"1.0.0\"}",
+    "durationMs" : 0,
+    "complete" : true
+  }, {
+    "seq" : 2,
+    "protocol" : "A2A",
+    "direction" : "request",
+    "method" : "POST",
+    "path" : "/a2a",
+    "status" : 200,
+    "requestHeaders" : {
+      "a2a-version" : "1.0",
+      "content-type" : "application/json"
+    },
+    "requestBody" : "{\"id\":\"00000000-0000-4000-8000-000000000003\",\"jsonrpc\":\"2.0\",\"method\":\"SendMessage\",\"params\":{\"configuration\":{\"acceptedOutputModes\":[],\"returnImmediately\":false},\"message\":{\"contextId\":\"\",\"extensions\":[],\"messageId\":\"00000000-0000-4000-8000-000000000004\",\"metadata\":{},\"parts\":[{\"filename\":\"\",\"mediaType\":\"\",\"metadata\":{},\"text\":\"What's the weather in Oslo?\"}],\"referenceTaskIds\":[],\"role\":\"ROLE_USER\",\"taskId\":\"\"},\"metadata\":{},\"tenant\":\"\"}}",
+    "responseHeaders" : {
+      "content-type" : "application/json"
+    },
+    "responseBody" : "{\"id\":\"00000000-0000-4000-8000-000000000003\",\"jsonrpc\":\"2.0\",\"result\":{\"task\":{\"artifacts\":[{\"artifactId\":\"00000000-0000-4000-8000-000000000005\",\"description\":\"\",\"extensions\":[],\"metadata\":{},\"name\":\"response\",\"parts\":[{\"filename\":\"\",\"mediaType\":\"\",\"metadata\":{},\"text\":\"It's 12.0 °C in Oslo right now.\"}]}],\"contextId\":\"00000000-0000-4000-8000-000000000001\",\"history\":[{\"contextId\":\"00000000-0000-4000-8000-000000000001\",\"extensions\":[],\"messageId\":\"00000000-0000-4000-8000-000000000004\",\"metadata\":{},\"parts\":[{\"filename\":\"\",\"mediaType\":\"\",\"metadata\":{},\"text\":\"What's the weather in Oslo?\"}],\"referenceTaskIds\":[],\"role\":\"ROLE_USER\",\"taskId\":\"00000000-0000-4000-8000-000000000002\"}],\"id\":\"00000000-0000-4000-8000-000000000002\",\"metadata\":{},\"status\":{\"state\":\"TASK_STATE_COMPLETED\",\"timestamp\":\"2026-01-01T00:00:00Z\"}}}}",
+    "durationMs" : 0,
+    "complete" : true
+  } ],
+  "compliance" : [ {
+    "protocol" : "A2A",
+    "sdk" : "org.a2aproject.sdk:a2a-java-sdk-client 1.5.0.Final",
+    "wireRevisions" : [ "1.0" ],
+    "negotiated" : "1.0",
+    "supported" : [ "auth/static-credentials", "binding/jsonrpc", "content/data", "content/file-bytes", "content/file-uri", "content/text", "discovery/agent-card", "discovery/extended-agent-card", "operation/cancel-task", "operation/get-task", "operation/send-message", "operation/send-streaming-message", "operation/subscribe-to-task", "tasks/multi-turn" ],
+    "unsupported" : [ "auth/security-schemes", "binding/grpc", "binding/http-json", "discovery/card-signatures", "extensions", "multi-tenancy", "operation/list-tasks", "push-notifications" ]
+  } ]
+}

@@ -1,0 +1,92 @@
+{
+  "stepId" : "utcp.manual",
+  "ok" : true,
+  "summary" : "The manual describes 3 tools: forecast, temperature, updates",
+  "data" : [ {
+    "description" : "Weather forecast for the next days",
+    "inputSchema" : {
+      "properties" : {
+        "body" : {
+          "properties" : {
+            "city" : {
+              "description" : "City name",
+              "type" : "string"
+            },
+            "days" : {
+              "description" : "Number of days, 1 to 5",
+              "type" : "integer"
+            }
+          },
+          "required" : [ "city", "days" ],
+          "type" : "object"
+        }
+      },
+      "required" : [ "body" ],
+      "type" : "object"
+    },
+    "name" : "forecast"
+  }, {
+    "description" : "Current temperature in a city, in degrees Celsius",
+    "inputSchema" : {
+      "properties" : {
+        "body" : {
+          "properties" : {
+            "city" : {
+              "description" : "City name, e.g. Oslo",
+              "type" : "string"
+            }
+          },
+          "required" : [ "city" ],
+          "type" : "object"
+        }
+      },
+      "required" : [ "body" ],
+      "type" : "object"
+    },
+    "name" : "temperature"
+  }, {
+    "description" : "Streams weather updates for a city (RAP subscription)",
+    "inputSchema" : {
+      "properties" : {
+        "body" : {
+          "properties" : {
+            "city" : {
+              "description" : "City name",
+              "type" : "string"
+            }
+          },
+          "required" : [ "city" ],
+          "type" : "object"
+        }
+      },
+      "required" : [ "body" ],
+      "type" : "object"
+    },
+    "name" : "updates"
+  } ],
+  "error" : null,
+  "exchanges" : [ {
+    "seq" : 1,
+    "protocol" : "UTCP",
+    "direction" : "request",
+    "method" : "GET",
+    "path" : "/utcp",
+    "status" : 200,
+    "requestHeaders" : { },
+    "requestBody" : "",
+    "responseHeaders" : {
+      "content-type" : "application/json;charset=UTF-8"
+    },
+    "responseBody" : "{\"manual_version\":\"1.0.0\",\"tools\":[{\"description\":\"Weather forecast for the next days\",\"inputs\":{\"properties\":{\"body\":{\"properties\":{\"city\":{\"description\":\"City name\",\"type\":\"string\"},\"days\":{\"description\":\"Number of days, 1 to 5\",\"type\":\"integer\"}},\"required\":[\"city\",\"days\"],\"type\":\"object\"}},\"required\":[\"body\"],\"type\":\"object\"},\"name\":\"forecast\",\"outputs\":{},\"tags\":[],\"tool_call_template\":{\"body_field\":\"body\",\"call_template_type\":\"http\",\"content_type\":\"application/json\",\"http_method\":\"POST\",\"url\":\"http://localhost:8080/utcp/tools/forecast\"}},{\"description\":\"Current temperature in a city, in degrees Celsius\",\"inputs\":{\"properties\":{\"body\":{\"properties\":{\"city\":{\"description\":\"City name, e.g. Oslo\",\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"}},\"required\":[\"body\"],\"type\":\"object\"},\"name\":\"temperature\",\"outputs\":{},\"tags\":[],\"tool_call_template\":{\"body_field\":\"body\",\"call_template_type\":\"http\",\"content_type\":\"application/json\",\"http_method\":\"POST\",\"url\":\"http://localhost:8080/utcp/tools/temperature\"}},{\"description\":\"Streams weather updates for a city (RAP subscription)\",\"inputs\":{\"properties\":{\"body\":{\"properties\":{\"city\":{\"description\":\"City name\",\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"}},\"required\":[\"body\"],\"type\":\"object\"},\"name\":\"updates\",\"outputs\":{},\"tags\":[],\"tool_call_template\":{\"body_field\":\"body\",\"call_template_type\":\"http\",\"content_type\":\"application/json\",\"http_method\":\"POST\",\"url\":\"http://localhost:8080/utcp/tools/updates\"}}],\"utcp_version\":\"1.1.0\"}",
+    "durationMs" : 0,
+    "complete" : true
+  } ],
+  "compliance" : [ {
+    "protocol" : "UTCP",
+    "sdk" : "Protoweft 0.1.0-SNAPSHOT, from the spec",
+    "wireRevisions" : [ "1.0", "1.1" ],
+    "negotiated" : "1.1.0",
+    "supported" : [ "auth/api_key", "auth/basic", "auth/oauth2", "call-template/http", "call-template/text", "manual/allowed-communication-protocols", "manual/file", "manual/http", "manual/text", "search/tag_and_description_word_match", "security/https-or-loopback", "variables/dotenv-loader", "variables/substitution" ],
+    "unsupported" : [ "auth/auth_tools", "call-template/cli", "call-template/file", "call-template/graphql", "call-template/mcp", "call-template/sse", "call-template/streamable_http", "call-template/tcp", "call-template/udp", "call-template/websocket", "client/call-tool-streaming", "client/post-processing", "manual/openapi-conversion", "manual/yaml", "search/in_mem_embeddings" ]
+  } ]
+}

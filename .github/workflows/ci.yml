@@ -29,6 +29,14 @@ jobs:
       - uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
       - name: Build and test every example
         run: ./gradlew build --console=plain
+      - name: Check that the tour's replay recordings are current
+        # The build re-records them (RecordReplayTest); a difference means the protocols' traffic changed.
+        run: |
+          git status --short -- tour/frontend/public/replay
+          [ -z "$(git status --porcelain -- tour/frontend/public/replay)" ] || {
+            echo "::error::The tour's replay recordings changed. Run ./gradlew :tour:test and commit tour/frontend/public/replay."
+            exit 1
+          }
       - name: Run the MCP client example
         run: ./gradlew :mcp-client-example:run --console=plain
       - name: Run the plain-Java gateway example
@@ -42,14 +50,17 @@ jobs:
           name: test-reports-jdk${{ matrix.java }}
           path: '**/build/reports/tests/'
 
-  agui-page:
-    name: Build the AG-UI web page
+  web-pages:
+    name: Build the web pages (AG-UI example, tour)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '20'
-      - name: npm ci and build
+      - name: AG-UI example page
         working-directory: agui-web/frontend
         run: npm ci --ignore-scripts && npm run build
+      - name: Tour page (live and GitHub Pages builds)
+        working-directory: tour/frontend
+        run: npm ci --ignore-scripts && npm run build && npm run build:pages

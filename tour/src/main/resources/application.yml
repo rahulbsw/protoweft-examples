@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: protoweft-tour
+  # The page is rebuilt often (./tour/run.sh): browsers revalidate it instead of showing a stale copy.
+  web:
+    resources:
+      cache:
+        cachecontrol:
+          no-cache: true
+  ai:
+    openai:
+      # Empty means "no key": the tour then uses its scripted model (see tour.model).
+      api-key: ${OPENAI_API_KEY:}
+      # Any OpenAI-compatible server: set SPRING_AI_OPENAI_BASE_URL, keeping the /v1
+      # (e.g. http://localhost:11434/v1 for Ollama).
+      chat:
+        options:
+          model: ${OPENAI_MODEL:gpt-4o-mini}
+
+server:
+  port: ${PORT:8080}
+  # This machine only: the tour has no authentication (ADDRESS=0.0.0.0 to share it on your network).
+  address: ${ADDRESS:127.0.0.1}
+
+# auto: the scripted model without OPENAI_API_KEY, the OpenAI model with it. Or: scripted, openai.
+tour:
+  model: ${TOUR_MODEL:auto}
+
+# tour:begin config
+protoweft:
+  server:
+    mcp:
+      enabled: true          # MCP Streamable HTTP at /mcp
+      server-name: weather
+    utcp:
+      enabled: true          # UTCP manual at /utcp, tool calls at /utcp/tools/<tool>
+    a2a:
+      enabled: true          # agent card at /.well-known/agent-card.json, JSON-RPC at /a2a
+      description: Answers weather questions with Protoweft tools
+    rap:
+      enabled: true          # RAP toolset and calls under /rap
+      name: weather
+    agui:
+      enabled: true          # AG-UI runs at /agui, capabilities at /agui/capabilities
+      name: Protoweft Tour assistant
+      description: Answers weather questions and can recolour the page
+# tour:end

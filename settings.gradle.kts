@@ -8,4 +8,5 @@ include(
     "spring-ai-example",
     "argi-example",
     "agui-web",
+    "tour",
 )
