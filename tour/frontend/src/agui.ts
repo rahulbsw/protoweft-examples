@@ -28,7 +28,7 @@ function append(el: HTMLElement, delta: string) {
 
 /** The AG-UI chapter's chat: live through @ag-ui/client, or rebuilt from a recording. */
 export class Chat {
-  private agent = new HttpAgent({ url: "/agui" });
+  private readonly agent = new HttpAgent({ url: "/agui" });
 
   constructor(private log: HTMLElement) {}
 
@@ -103,10 +103,5 @@ export class Chat {
       }
       await pause(250);
     }
-  }
-
-  reset(): void {
-    this.agent = new HttpAgent({ url: "/agui" });
-    this.log.innerHTML = "";
   }
 }

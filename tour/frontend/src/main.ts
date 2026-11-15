@@ -1,7 +1,7 @@
 import "./style.css";
 import { chapters, type Chapter } from "./chapters";
 import { Chat } from "./agui";
-import { connectLive, liveExchanges, replay, ServerGone, type Source } from "./source";
+import { connectLive, liveExchanges, preloadRecordings, replay, ServerGone, type Source } from "./source";
 import * as view from "./wire";
 import type { Exchange, Run } from "./types";
 
@@ -70,8 +70,14 @@ function mountChat(slot: HTMLElement) {
     const input = slot.querySelector("input")!;
     if (!input.value.trim()) return;
     if (source.mode !== "live") { banner("Typing your own messages needs the live app. Run ./tour/run.sh, then reload."); return; }
-    void liveChat(null, input.value.trim());
+    if (busy) return;
+    const text = input.value.trim();
     input.value = "";
+    busy = true;
+    clearPanel("Sending…");
+    liveChat(null, text)
+      .catch((err) => { banner(`${(err as Error).message} You can keep going with the recorded traffic.`); })
+      .finally(() => { busy = false; });
   });
 }
 
@@ -143,24 +149,29 @@ async function liveChat(stepId: string | null, text: string) {
   if (!chat) return;
   const { mark } = await liveExchanges(-1);
   let seen = mark;
-  const poll = setInterval(async () => {
-    const { exchanges } = await liveExchanges(seen);
-    for (const e of exchanges.filter((x) => x.complete)) { addExchange(e); seen = e.seq; }
+  const shown = new Set<number>();
+  const show = (exchanges: Exchange[]) => exchanges.filter((e) => !shown.has(e.seq)).forEach((e) => {
+    shown.add(e.seq);
+    seen = Math.max(seen, e.seq);
+    addExchange(e);
+  });
+  const poll = setInterval(() => {
+    liveExchanges(seen).then(({ exchanges }) => show(exchanges.filter((x) => x.complete))).catch(() => { /* the run reports it */ });
   }, 400);
   try {
-    await chat.send(text);
+    await chat.send(text).catch(() => { throw new ServerGone("The tour app stopped."); });
   } finally {
     await pause(500);
     clearInterval(poll);
-    const { exchanges } = await liveExchanges(seen);
-    exchanges.forEach(addExchange);
   }
+  show((await liveExchanges(seen)).exchanges);
   $("summary").innerHTML = view.result(`Sent “${text}” with @ag-ui/client from this page${stepId ? "" : " (your message)"}`, null, true);
 }
 
 async function main() {
   if (new URLSearchParams(location.search).has("large")) document.documentElement.classList.add("large");
   source = (await connectLive()) ?? (await replay());
+  if (source.mode === "live") void preloadRecordings().catch(() => { /* replay just won't be offline */ });
   badges();
   nav();
   show(location.hash.slice(2));

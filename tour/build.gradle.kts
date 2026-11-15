@@ -26,6 +26,10 @@ dependencies {
 }
 
 // RecordReplayTest writes the replay recordings the page plays without a server.
+// Declared as an output, so Gradle re-runs the tests when the recordings were edited and restores
+// them from the build cache on a hit, rather than skipping the recording.
 tasks.withType<Test>().configureEach {
-    systemProperty("tour.replayDir", layout.projectDirectory.dir("frontend/public/replay").asFile.absolutePath)
+    val replay = layout.projectDirectory.dir("frontend/public/replay")
+    systemProperty("tour.replayDir", replay.asFile.absolutePath)
+    outputs.dir(replay)
 }

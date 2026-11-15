@@ -9,12 +9,16 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+# The page's inputs: its own sources, and the Java and YAML the code snippets are cut from.
 page=tour/src/main/resources/static/index.html
-if [[ ! -f $page || -n $(find tour/frontend/src tour/frontend/chapters tour/frontend/index.html tour/src/main/java \
+if [[ ! -f $page || -n $(find tour/frontend/src tour/frontend/chapters tour/frontend/index.html \
+      tour/frontend/vite.config.ts tour/frontend/package.json tour/src/main/java tour/src/main/resources/application.yml \
       -newer "$page" -type f 2>/dev/null | head -1) ]]; then
   command -v npm >/dev/null || { echo "The tour page needs Node.js 20 or newer (npm) to build: https://nodejs.org" >&2; exit 1; }
   echo "Building the tour page…"
-  (cd tour/frontend && { [[ -d node_modules ]] || npm ci --ignore-scripts --silent; } && npm run build --silent)
+  (cd tour/frontend
+   if [[ ! -d node_modules || package-lock.json -nt node_modules ]]; then npm ci --ignore-scripts --silent; fi
+   npm run build --silent)
 fi
 
 echo "Starting the tour app (the first run downloads dependencies, which takes a minute)…"

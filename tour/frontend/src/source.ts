@@ -39,22 +39,38 @@ export async function connectLive(): Promise<Source | null> {
   }
 }
 
+/** Recordings already loaded; in live mode they are preloaded, so replay still works once the app stops. */
+const recordings = new Map<string, unknown>();
+
+async function recording(name: string): Promise<any> {
+  if (!recordings.has(name)) {
+    const res = await fetch(replayUrl(name));
+    if (!res.ok) throw new Error(`No recording for ${name}.`);
+    recordings.set(name, await res.json());
+  }
+  return recordings.get(name);
+}
+
+export async function preloadRecordings(): Promise<void> {
+  const index = await recording("index");
+  await Promise.all(index.steps.map((s: { id: string }) => recording(s.id)));
+}
+
 export async function replay(): Promise<Source> {
-  const index = await fetch(replayUrl("index")).then((r) => r.json()).catch(() => ({ model: "scripted" }));
+  const index = await recording("index").catch(() => ({ model: "scripted" }));
   return {
     mode: "replay",
     model: `${index.model} (recorded)`,
     baseUrl: "http://localhost:8080",
-    async run(stepId) {
-      const res = await fetch(replayUrl(stepId));
-      if (!res.ok) throw new Error(`No recording for ${stepId}.`);
-      return res.json();
-    },
+    run: (stepId) => recording(stepId),
   };
 }
 
 /** Polls the live app for exchanges after a mark: the page's own AG-UI traffic. */
 export async function liveExchanges(since: number): Promise<{ mark: number; exchanges: Exchange[] }> {
-  const res = await fetch(`/tour/api/exchanges?since=${since}`);
-  return res.json();
+  try {
+    const res = await fetch(`/tour/api/exchanges?since=${since}`);
+    if (res.ok) return await res.json();
+  } catch { /* below */ }
+  throw new ServerGone("The tour app stopped.");
 }

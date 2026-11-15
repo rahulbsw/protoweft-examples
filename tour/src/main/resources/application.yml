@@ -1,6 +1,12 @@
 spring:
   application:
     name: protoweft-tour
+  # The page is rebuilt often (./tour/run.sh): browsers revalidate it instead of showing a stale copy.
+  web:
+    resources:
+      cache:
+        cachecontrol:
+          no-cache: true
   ai:
     openai:
       # Empty means "no key": the tour then uses its scripted model (see tour.model).
@@ -13,6 +19,8 @@ spring:
 
 server:
   port: ${PORT:8080}
+  # This machine only: the tour has no authentication (ADDRESS=0.0.0.0 to share it on your network).
+  address: ${ADDRESS:127.0.0.1}
 
 # auto: the scripted model without OPENAI_API_KEY, the OpenAI model with it. Or: scripted, openai.
 tour:

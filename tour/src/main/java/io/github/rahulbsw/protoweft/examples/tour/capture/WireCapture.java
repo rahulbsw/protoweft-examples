@@ -103,6 +103,9 @@ public class WireCapture {
 
     void finishLongLived(Recording r) {
         r.durationMs = (System.nanoTime() - r.startNanos) / 1_000_000;
+        synchronized (this) {
+            notifyAll();
+        }
     }
 
     /** The sequence number of the latest exchange; exchanges after it are newer. */
@@ -122,6 +125,21 @@ public class WireCapture {
     public synchronized void awaitIdle(long timeoutMillis) throws InterruptedException {
         long deadline = System.currentTimeMillis() + timeoutMillis;
         while (inFlight > 0) {
+            long left = deadline - System.currentTimeMillis();
+            if (left <= 0) {
+                return;
+            }
+            wait(left);
+        }
+    }
+
+    /**
+     * Waits until every exchange after {@code since} has finished, long-lived streams included
+     * (a step closes its clients, which ends their streams), or until the timeout.
+     */
+    public synchronized void awaitFinished(long since, long timeoutMillis) throws InterruptedException {
+        long deadline = System.currentTimeMillis() + timeoutMillis;
+        while (recordings.stream().anyMatch(r -> r.seq > since && r.durationMs < 0)) {
             long left = deadline - System.currentTimeMillis();
             if (left <= 0) {
                 return;

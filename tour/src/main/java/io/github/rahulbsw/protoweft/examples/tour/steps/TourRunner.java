@@ -54,6 +54,7 @@ public class TourRunner {
             error = e.getMessage() == null ? e.getClass().getSimpleName() : e.getMessage();
         }
         capture.awaitIdle(2_000);   // late callbacks and closing requests belong to this step too
+        capture.awaitFinished(mark, 2_000);   // and the end of streams the step's clients closed
         List<WireCapture.Exchange> exchanges = capture.since(mark);
         if (result == null) {
             return new Run(step.id(), false, "The step failed: " + error, null, error, exchanges, List.of());

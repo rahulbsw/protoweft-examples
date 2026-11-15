@@ -32,7 +32,8 @@ jobs:
       - name: Check that the tour's replay recordings are current
         # The build re-records them (RecordReplayTest); a difference means the protocols' traffic changed.
         run: |
-          git diff --stat --exit-code -- tour/frontend/public/replay || {
+          git status --short -- tour/frontend/public/replay
+          [ -z "$(git status --porcelain -- tour/frontend/public/replay)" ] || {
             echo "::error::The tour's replay recordings changed. Run ./gradlew :tour:test and commit tour/frontend/public/replay."
             exit 1
           }

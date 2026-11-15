@@ -68,10 +68,27 @@ class RecordReplayTest {
     record IndexEntry(String id, String chapter, String title) {
     }
 
-    /** Exchange numbers start at 1 in each recording; JSON bodies get sorted keys. */
+    /**
+     * Exchange numbers start at 1 in each recording; JSON bodies get sorted keys. The MCP client
+     * opens its notification stream (GET /mcp) in parallel with notifications/initialized, so the
+     * stream is put right after the initialize request it follows.
+     */
     private TourRunner.Run renumber(TourRunner.Run run) {
+        List<WireCapture.Exchange> ordered = new ArrayList<>(run.exchanges());
+        List<WireCapture.Exchange> streams = ordered.stream()
+                .filter(e -> e.protocol().equals("MCP") && e.method().equals("GET")).toList();
+        ordered.removeAll(streams);
+        int at = 0;
+        for (WireCapture.Exchange stream : streams) {
+            while (at < ordered.size() && !(ordered.get(at).protocol().equals("MCP")
+                    && ordered.get(at).requestBody().contains("\"initialize\""))) {
+                at++;
+            }
+            at = Math.min(at + 1, ordered.size());
+            ordered.add(at, stream);
+        }
         List<WireCapture.Exchange> exchanges = new ArrayList<>();
-        for (WireCapture.Exchange e : run.exchanges()) {
+        for (WireCapture.Exchange e : ordered) {
             exchanges.add(new WireCapture.Exchange(exchanges.size() + 1, e.protocol(), e.direction(), e.method(), e.path(),
                     e.status(), e.requestHeaders(), canonical(e.requestBody()), e.responseHeaders(), canonical(e.responseBody()), 0,
                     e.complete()));
