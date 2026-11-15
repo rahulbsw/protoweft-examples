@@ -1,0 +1,76 @@
+{
+  "stepId" : "rap.toolset",
+  "ok" : true,
+  "summary" : "The toolset has 3 tools: forecast, temperature, updates",
+  "data" : [ {
+    "description" : "Weather forecast for the next days",
+    "inputSchema" : {
+      "properties" : {
+        "city" : {
+          "description" : "City name",
+          "type" : "string"
+        },
+        "days" : {
+          "description" : "Number of days, 1 to 5",
+          "type" : "integer"
+        }
+      },
+      "required" : [ "city", "days" ],
+      "type" : "object"
+    },
+    "name" : "forecast"
+  }, {
+    "description" : "Current temperature in a city, in degrees Celsius",
+    "inputSchema" : {
+      "properties" : {
+        "city" : {
+          "description" : "City name, e.g. Oslo",
+          "type" : "string"
+        }
+      },
+      "required" : [ "city" ],
+      "type" : "object"
+    },
+    "name" : "temperature"
+  }, {
+    "description" : "Streams weather updates for a city (RAP subscription)",
+    "inputSchema" : {
+      "properties" : {
+        "city" : {
+          "description" : "City name",
+          "type" : "string"
+        }
+      },
+      "required" : [ "city" ],
+      "type" : "object"
+    },
+    "name" : "updates"
+  } ],
+  "error" : null,
+  "exchanges" : [ {
+    "seq" : 1,
+    "protocol" : "RAP",
+    "direction" : "request",
+    "method" : "GET",
+    "path" : "/rap/.well-known/rap-toolset",
+    "status" : 200,
+    "requestHeaders" : {
+      "accept" : "application/json"
+    },
+    "requestBody" : "",
+    "responseHeaders" : {
+      "content-type" : "application/json;charset=UTF-8"
+    },
+    "responseBody" : "{\"endpoint\":\"http://localhost:8080/rap/invoke\",\"name\":\"weather\",\"tools\":[{\"annotations\":{\"x-protoweft-readOnly\":true},\"description\":\"Weather forecast for the next days\",\"inputSchema\":{\"properties\":{\"city\":{\"description\":\"City name\",\"type\":\"string\"},\"days\":{\"description\":\"Number of days, 1 to 5\",\"type\":\"integer\"}},\"required\":[\"city\",\"days\"],\"type\":\"object\"},\"name\":\"forecast\"},{\"annotations\":{\"x-protoweft-readOnly\":true},\"description\":\"Current temperature in a city, in degrees Celsius\",\"inputSchema\":{\"properties\":{\"city\":{\"description\":\"City name, e.g. Oslo\",\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"},\"name\":\"temperature\"},{\"annotations\":{\"x-protoweft-readOnly\":true},\"description\":\"Streams weather updates for a city (RAP subscription)\",\"inputSchema\":{\"properties\":{\"city\":{\"description\":\"City name\",\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"},\"name\":\"updates\"}]}",
+    "durationMs" : 0,
+    "complete" : true
+  } ],
+  "compliance" : [ {
+    "protocol" : "RAP",
+    "sdk" : "Protoweft 0.1.0-SNAPSHOT, from the spec",
+    "wireRevisions" : [ "infinity@e1a3e4b" ],
+    "negotiated" : "infinity@e1a3e4b",
+    "supported" : [ "oauth", "subscription_event", "thread_closure", "tool/invocation", "tool_cancellation", "tool_result/content", "tool_result/text", "toolset/discovery", "user_choice" ],
+    "unsupported" : [ "migration", "tool_result/display_as", "toolset/display_script", "view_update" ]
+  } ]
+}

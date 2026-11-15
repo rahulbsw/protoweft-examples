@@ -1,0 +1,29 @@
+{
+  "stepId" : "agui.chat",
+  "ok" : true,
+  "summary" : "COMPLETED: It's 12.0 °C in Oslo right now.",
+  "data" : {
+    "events" : [ "RunStarted", "ToolCallStart", "ToolCallArgs", "ToolCallEnd", "ToolCallResult", "TextMessageStart", "TextMessageContent", "TextMessageContent", "TextMessageContent", "TextMessageContent", "TextMessageContent", "TextMessageContent", "TextMessageContent", "TextMessageEnd", "RunFinished" ]
+  },
+  "error" : null,
+  "exchanges" : [ {
+    "seq" : 1,
+    "protocol" : "AG-UI",
+    "direction" : "request",
+    "method" : "POST",
+    "path" : "/agui",
+    "status" : 200,
+    "requestHeaders" : {
+      "accept" : "text/event-stream",
+      "content-type" : "application/json"
+    },
+    "requestBody" : "{\"messages\":[{\"content\":\"What's the temperature in Oslo?\",\"id\":\"00000000-0000-4000-8000-000000000001\",\"role\":\"user\"}],\"protocolVersion\":\"1.0\",\"runId\":\"00000000-0000-4000-8000-000000000002\",\"state\":{},\"threadId\":\"00000000-0000-4000-8000-000000000003\",\"tools\":[{\"description\":\"Change the page's accent colour\",\"name\":\"set_theme\",\"parameters\":{\"properties\":{\"color\":{\"type\":\"string\"}},\"type\":\"object\"}}]}",
+    "responseHeaders" : {
+      "content-type" : "text/event-stream;charset=UTF-8"
+    },
+    "responseBody" : "data:{\"protocolVersion\":\"1.0\",\"runId\":\"00000000-0000-4000-8000-000000000002\",\"threadId\":\"00000000-0000-4000-8000-000000000003\",\"type\":\"RUN_STARTED\"}\n\ndata:{\"toolCallId\":\"00000000-0000-4000-8000-000000000004\",\"toolCallName\":\"local__temperature\",\"type\":\"TOOL_CALL_START\"}\n\ndata:{\"delta\":\"{\\\"city\\\":\\\"Oslo\\\"}\",\"toolCallId\":\"00000000-0000-4000-8000-000000000004\",\"type\":\"TOOL_CALL_ARGS\"}\n\ndata:{\"toolCallId\":\"00000000-0000-4000-8000-000000000004\",\"type\":\"TOOL_CALL_END\"}\n\ndata:{\"content\":\"12.0\",\"messageId\":\"00000000-0000-4000-8000-000000000005\",\"toolCallId\":\"00000000-0000-4000-8000-000000000004\",\"type\":\"TOOL_CALL_RESULT\"}\n\ndata:{\"messageId\":\"00000000-0000-4000-8000-000000000006\",\"type\":\"TEXT_MESSAGE_START\"}\n\ndata:{\"delta\":\"It's \",\"messageId\":\"00000000-0000-4000-8000-000000000006\",\"type\":\"TEXT_MESSAGE_CONTENT\"}\n\ndata:{\"delta\":\"12.0 \",\"messageId\":\"00000000-0000-4000-8000-000000000006\",\"type\":\"TEXT_MESSAGE_CONTENT\"}\n\ndata:{\"delta\":\"°C \",\"messageId\":\"00000000-0000-4000-8000-000000000006\",\"type\":\"TEXT_MESSAGE_CONTENT\"}\n\ndata:{\"delta\":\"in \",\"messageId\":\"00000000-0000-4000-8000-000000000006\",\"type\":\"TEXT_MESSAGE_CONTENT\"}\n\ndata:{\"delta\":\"Oslo \",\"messageId\":\"00000000-0000-4000-8000-000000000006\",\"type\":\"TEXT_MESSAGE_CONTENT\"}\n\ndata:{\"delta\":\"right \",\"messageId\":\"00000000-0000-4000-8000-000000000006\",\"type\":\"TEXT_MESSAGE_CONTENT\"}\n\ndata:{\"delta\":\"now.\",\"messageId\":\"00000000-0000-4000-8000-000000000006\",\"type\":\"TEXT_MESSAGE_CONTENT\"}\n\ndata:{\"messageId\":\"00000000-0000-4000-8000-000000000006\",\"type\":\"TEXT_MESSAGE_END\"}\n\ndata:{\"runId\":\"00000000-0000-4000-8000-000000000002\",\"threadId\":\"00000000-0000-4000-8000-000000000003\",\"type\":\"RUN_FINISHED\"}\n\n",
+    "durationMs" : 0,
+    "complete" : true
+  } ],
+  "compliance" : [ ]
+}

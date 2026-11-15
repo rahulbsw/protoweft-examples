@@ -353,7 +353,7 @@ public class TourSteps {
     private Result registryList(String base) {
         try (Sources s = sources(base)) {
             List<ToolSpec> tools = s.registry().listTools();
-            return Result.of(tools.size() + " tools from four protocols", tools.stream().map(ToolSpec::name).toList(),
+            return Result.of(tools.size() + " tools from four protocols", tools.stream().map(ToolSpec::name).sorted().toList(),
                     s.mcp(), s.utcp(), s.a2a(), s.rap());
         }
     }
@@ -384,12 +384,13 @@ public class TourSteps {
         }
     }
 
+    // Tools are listed by name: some connectors (RAP's) don't keep the server's order.
     private static String names(List<ToolSpec> tools) {
-        return String.join(", ", tools.stream().map(ToolSpec::name).toList());
+        return String.join(", ", tools.stream().map(ToolSpec::name).sorted().toList());
     }
 
     private static List<Map<String, Object>> specs(List<ToolSpec> tools) {
-        return tools.stream().map(t -> {
+        return tools.stream().sorted(java.util.Comparator.comparing(ToolSpec::name)).map(t -> {
             Map<String, Object> m = new LinkedHashMap<>();
             m.put("name", t.name());
             m.put("description", t.description());

@@ -1,0 +1,47 @@
+{
+  "stepId" : "agui.theme",
+  "ok" : true,
+  "summary" : "COMPLETED: Done. The page is now teal.",
+  "data" : {
+    "events" : [ "RunStarted", "ToolCallStart", "ToolCallArgs", "ToolCallEnd", "RunFinished", "RunStarted", "TextMessageStart", "TextMessageContent", "TextMessageContent", "TextMessageContent", "TextMessageContent", "TextMessageContent", "TextMessageContent", "TextMessageEnd", "RunFinished" ]
+  },
+  "error" : null,
+  "exchanges" : [ {
+    "seq" : 1,
+    "protocol" : "AG-UI",
+    "direction" : "request",
+    "method" : "POST",
+    "path" : "/agui",
+    "status" : 200,
+    "requestHeaders" : {
+      "accept" : "text/event-stream",
+      "content-type" : "application/json"
+    },
+    "requestBody" : "{\"messages\":[{\"content\":\"Make the page teal\",\"id\":\"00000000-0000-4000-8000-000000000001\",\"role\":\"user\"}],\"protocolVersion\":\"1.0\",\"runId\":\"00000000-0000-4000-8000-000000000002\",\"state\":{},\"threadId\":\"00000000-0000-4000-8000-000000000003\",\"tools\":[{\"description\":\"Change the page's accent colour\",\"name\":\"set_theme\",\"parameters\":{\"properties\":{\"color\":{\"type\":\"string\"}},\"type\":\"object\"}}]}",
+    "responseHeaders" : {
+      "content-type" : "text/event-stream;charset=UTF-8"
+    },
+    "responseBody" : "data:{\"protocolVersion\":\"1.0\",\"runId\":\"00000000-0000-4000-8000-000000000002\",\"threadId\":\"00000000-0000-4000-8000-000000000003\",\"type\":\"RUN_STARTED\"}\n\ndata:{\"toolCallId\":\"00000000-0000-4000-8000-000000000004\",\"toolCallName\":\"set_theme\",\"type\":\"TOOL_CALL_START\"}\n\ndata:{\"delta\":\"{\\\"color\\\":\\\"teal\\\"}\",\"toolCallId\":\"00000000-0000-4000-8000-000000000004\",\"type\":\"TOOL_CALL_ARGS\"}\n\ndata:{\"toolCallId\":\"00000000-0000-4000-8000-000000000004\",\"type\":\"TOOL_CALL_END\"}\n\ndata:{\"outcome\":{\"pendingToolCallIds\":[\"00000000-0000-4000-8000-000000000004\"],\"type\":\"success\"},\"runId\":\"00000000-0000-4000-8000-000000000002\",\"threadId\":\"00000000-0000-4000-8000-000000000003\",\"type\":\"RUN_FINISHED\"}\n\n",
+    "durationMs" : 0,
+    "complete" : true
+  }, {
+    "seq" : 2,
+    "protocol" : "AG-UI",
+    "direction" : "request",
+    "method" : "POST",
+    "path" : "/agui",
+    "status" : 200,
+    "requestHeaders" : {
+      "accept" : "text/event-stream",
+      "content-type" : "application/json"
+    },
+    "requestBody" : "{\"messages\":[{\"content\":\"Make the page teal\",\"id\":\"00000000-0000-4000-8000-000000000001\",\"role\":\"user\"},{\"id\":\"00000000-0000-4000-8000-000000000005\",\"role\":\"assistant\",\"toolCalls\":[{\"function\":{\"arguments\":\"{\\\"color\\\":\\\"teal\\\"}\",\"name\":\"set_theme\"},\"id\":\"00000000-0000-4000-8000-000000000004\",\"type\":\"function\"}]},{\"content\":\"The page is now teal.\",\"id\":\"00000000-0000-4000-8000-000000000006\",\"role\":\"tool\",\"toolCallId\":\"00000000-0000-4000-8000-000000000004\"}],\"protocolVersion\":\"1.0\",\"runId\":\"00000000-0000-4000-8000-000000000007\",\"state\":{},\"threadId\":\"00000000-0000-4000-8000-000000000003\",\"tools\":[{\"description\":\"Change the page's accent colour\",\"name\":\"set_theme\",\"parameters\":{\"properties\":{\"color\":{\"type\":\"string\"}},\"type\":\"object\"}}]}",
+    "responseHeaders" : {
+      "content-type" : "text/event-stream;charset=UTF-8"
+    },
+    "responseBody" : "data:{\"protocolVersion\":\"1.0\",\"runId\":\"00000000-0000-4000-8000-000000000007\",\"threadId\":\"00000000-0000-4000-8000-000000000003\",\"type\":\"RUN_STARTED\"}\n\ndata:{\"messageId\":\"00000000-0000-4000-8000-000000000008\",\"type\":\"TEXT_MESSAGE_START\"}\n\ndata:{\"delta\":\"Done. \",\"messageId\":\"00000000-0000-4000-8000-000000000008\",\"type\":\"TEXT_MESSAGE_CONTENT\"}\n\ndata:{\"delta\":\"The \",\"messageId\":\"00000000-0000-4000-8000-000000000008\",\"type\":\"TEXT_MESSAGE_CONTENT\"}\n\ndata:{\"delta\":\"page \",\"messageId\":\"00000000-0000-4000-8000-000000000008\",\"type\":\"TEXT_MESSAGE_CONTENT\"}\n\ndata:{\"delta\":\"is \",\"messageId\":\"00000000-0000-4000-8000-000000000008\",\"type\":\"TEXT_MESSAGE_CONTENT\"}\n\ndata:{\"delta\":\"now \",\"messageId\":\"00000000-0000-4000-8000-000000000008\",\"type\":\"TEXT_MESSAGE_CONTENT\"}\n\ndata:{\"delta\":\"teal.\",\"messageId\":\"00000000-0000-4000-8000-000000000008\",\"type\":\"TEXT_MESSAGE_CONTENT\"}\n\ndata:{\"messageId\":\"00000000-0000-4000-8000-000000000008\",\"type\":\"TEXT_MESSAGE_END\"}\n\ndata:{\"runId\":\"00000000-0000-4000-8000-000000000007\",\"threadId\":\"00000000-0000-4000-8000-000000000003\",\"type\":\"RUN_FINISHED\"}\n\n",
+    "durationMs" : 0,
+    "complete" : true
+  } ],
+  "compliance" : [ ]
+}

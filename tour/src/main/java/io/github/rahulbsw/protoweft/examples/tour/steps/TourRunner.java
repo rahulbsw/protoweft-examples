@@ -19,7 +19,8 @@ public class TourRunner {
     public record Compliance(String protocol, String sdk, List<String> wireRevisions, String negotiated,
                              List<String> supported, List<String> unsupported) {
         static Compliance of(ComplianceReport r) {
-            return new Compliance(name(r.protocol().toString()), r.sdkName() + " " + r.sdkVersion(), r.wireRevisions(),
+            String sdk = r.sdkName().equals("none") ? "Protoweft " + r.sdkVersion() + ", from the spec" : r.sdkName() + " " + r.sdkVersion();
+            return new Compliance(name(r.protocol().toString()), sdk, r.wireRevisions(),
                     r.negotiatedRevision(), List.copyOf(new TreeSet<>(r.supported())),
                     List.copyOf(new TreeSet<>(r.unsupported())));
         }

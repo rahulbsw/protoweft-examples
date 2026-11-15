@@ -1,0 +1,250 @@
+{
+  "stepId" : "registry.call",
+  "ok" : true,
+  "summary" : "The same answer through MCP, UTCP, RAP and the A2A agent",
+  "data" : {
+    "a2a.ask" : "It's 12.0 °C in Oslo right now.",
+    "mcp.temperature" : "12.0",
+    "rap.temperature" : "12.0",
+    "utcp.temperature" : "12.0"
+  },
+  "error" : null,
+  "exchanges" : [ {
+    "seq" : 1,
+    "protocol" : "MCP",
+    "direction" : "request",
+    "method" : "POST",
+    "path" : "/mcp",
+    "status" : 200,
+    "requestHeaders" : {
+      "accept" : "application/json, text/event-stream",
+      "content-type" : "application/json; charset=utf-8",
+      "mcp-protocol-version" : "2025-11-25"
+    },
+    "requestBody" : "{\"id\":\"00000010-0\",\"jsonrpc\":\"2.0\",\"method\":\"initialize\",\"params\":{\"capabilities\":{},\"clientInfo\":{\"name\":\"protoweft\",\"version\":\"0.1.0\"},\"protocolVersion\":\"2025-11-25\"}}",
+    "responseHeaders" : {
+      "content-type" : "application/json;charset=UTF-8",
+      "mcp-session-id" : "00000000-0000-4000-8000-000000000001"
+    },
+    "responseBody" : "{\"id\":\"00000010-0\",\"jsonrpc\":\"2.0\",\"result\":{\"capabilities\":{\"logging\":{},\"tools\":{\"listChanged\":false}},\"protocolVersion\":\"2025-11-25\",\"serverInfo\":{\"name\":\"weather\",\"version\":\"0.1.0\"}}}",
+    "durationMs" : 0,
+    "complete" : true
+  }, {
+    "seq" : 2,
+    "protocol" : "MCP",
+    "direction" : "request",
+    "method" : "GET",
+    "path" : "/mcp",
+    "status" : 200,
+    "requestHeaders" : {
+      "accept" : "text/event-stream",
+      "mcp-protocol-version" : "2025-11-25",
+      "mcp-session-id" : "00000000-0000-4000-8000-000000000001"
+    },
+    "requestBody" : "",
+    "responseHeaders" : {
+      "content-type" : "text/event-stream;charset=UTF-8"
+    },
+    "responseBody" : "",
+    "durationMs" : 0,
+    "complete" : true
+  }, {
+    "seq" : 3,
+    "protocol" : "MCP",
+    "direction" : "request",
+    "method" : "POST",
+    "path" : "/mcp",
+    "status" : 202,
+    "requestHeaders" : {
+      "accept" : "application/json, text/event-stream",
+      "content-type" : "application/json; charset=utf-8",
+      "mcp-protocol-version" : "2025-11-25",
+      "mcp-session-id" : "00000000-0000-4000-8000-000000000001"
+    },
+    "requestBody" : "{\"jsonrpc\":\"2.0\",\"method\":\"notifications/initialized\"}",
+    "responseHeaders" : { },
+    "responseBody" : "",
+    "durationMs" : 0,
+    "complete" : true
+  }, {
+    "seq" : 4,
+    "protocol" : "UTCP",
+    "direction" : "request",
+    "method" : "GET",
+    "path" : "/utcp",
+    "status" : 200,
+    "requestHeaders" : { },
+    "requestBody" : "",
+    "responseHeaders" : {
+      "content-type" : "application/json;charset=UTF-8"
+    },
+    "responseBody" : "{\"manual_version\":\"1.0.0\",\"tools\":[{\"description\":\"Weather forecast for the next days\",\"inputs\":{\"properties\":{\"body\":{\"properties\":{\"city\":{\"description\":\"City name\",\"type\":\"string\"},\"days\":{\"description\":\"Number of days, 1 to 5\",\"type\":\"integer\"}},\"required\":[\"city\",\"days\"],\"type\":\"object\"}},\"required\":[\"body\"],\"type\":\"object\"},\"name\":\"forecast\",\"outputs\":{},\"tags\":[],\"tool_call_template\":{\"body_field\":\"body\",\"call_template_type\":\"http\",\"content_type\":\"application/json\",\"http_method\":\"POST\",\"url\":\"http://localhost:8080/utcp/tools/forecast\"}},{\"description\":\"Current temperature in a city, in degrees Celsius\",\"inputs\":{\"properties\":{\"body\":{\"properties\":{\"city\":{\"description\":\"City name, e.g. Oslo\",\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"}},\"required\":[\"body\"],\"type\":\"object\"},\"name\":\"temperature\",\"outputs\":{},\"tags\":[],\"tool_call_template\":{\"body_field\":\"body\",\"call_template_type\":\"http\",\"content_type\":\"application/json\",\"http_method\":\"POST\",\"url\":\"http://localhost:8080/utcp/tools/temperature\"}},{\"description\":\"Streams weather updates for a city (RAP subscription)\",\"inputs\":{\"properties\":{\"body\":{\"properties\":{\"city\":{\"description\":\"City name\",\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"}},\"required\":[\"body\"],\"type\":\"object\"},\"name\":\"updates\",\"outputs\":{},\"tags\":[],\"tool_call_template\":{\"body_field\":\"body\",\"call_template_type\":\"http\",\"content_type\":\"application/json\",\"http_method\":\"POST\",\"url\":\"http://localhost:8080/utcp/tools/updates\"}}],\"utcp_version\":\"1.1.0\"}",
+    "durationMs" : 0,
+    "complete" : true
+  }, {
+    "seq" : 5,
+    "protocol" : "A2A",
+    "direction" : "request",
+    "method" : "GET",
+    "path" : "/.well-known/agent-card.json",
+    "status" : 200,
+    "requestHeaders" : {
+      "content-type" : "application/json"
+    },
+    "requestBody" : "",
+    "responseHeaders" : {
+      "content-type" : "application/json"
+    },
+    "responseBody" : "{\"capabilities\":{\"extendedAgentCard\":false,\"pushNotifications\":true,\"streaming\":true},\"defaultInputModes\":[\"text/plain\",\"application/json\"],\"defaultOutputModes\":[\"text/plain\",\"application/json\"],\"description\":\"Answers weather questions with Protoweft tools\",\"name\":\"Weather agent\",\"preferredTransport\":\"JSONRPC\",\"skills\":[{\"description\":\"Current temperature and forecasts for a city\",\"id\":\"weather\",\"name\":\"Weather\",\"tags\":[\"weather\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"JSONRPC\",\"protocolVersion\":\"1.0\",\"url\":\"http://localhost:8080/a2a\"}],\"version\":\"1.0.0\"}",
+    "durationMs" : 0,
+    "complete" : true
+  }, {
+    "seq" : 6,
+    "protocol" : "RAP",
+    "direction" : "request",
+    "method" : "GET",
+    "path" : "/rap/.well-known/rap-toolset",
+    "status" : 200,
+    "requestHeaders" : {
+      "accept" : "application/json"
+    },
+    "requestBody" : "",
+    "responseHeaders" : {
+      "content-type" : "application/json;charset=UTF-8"
+    },
+    "responseBody" : "{\"endpoint\":\"http://localhost:8080/rap/invoke\",\"name\":\"weather\",\"tools\":[{\"annotations\":{\"x-protoweft-readOnly\":true},\"description\":\"Weather forecast for the next days\",\"inputSchema\":{\"properties\":{\"city\":{\"description\":\"City name\",\"type\":\"string\"},\"days\":{\"description\":\"Number of days, 1 to 5\",\"type\":\"integer\"}},\"required\":[\"city\",\"days\"],\"type\":\"object\"},\"name\":\"forecast\"},{\"annotations\":{\"x-protoweft-readOnly\":true},\"description\":\"Current temperature in a city, in degrees Celsius\",\"inputSchema\":{\"properties\":{\"city\":{\"description\":\"City name, e.g. Oslo\",\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"},\"name\":\"temperature\"},{\"annotations\":{\"x-protoweft-readOnly\":true},\"description\":\"Streams weather updates for a city (RAP subscription)\",\"inputSchema\":{\"properties\":{\"city\":{\"description\":\"City name\",\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"},\"name\":\"updates\"}]}",
+    "durationMs" : 0,
+    "complete" : true
+  }, {
+    "seq" : 7,
+    "protocol" : "MCP",
+    "direction" : "request",
+    "method" : "POST",
+    "path" : "/mcp",
+    "status" : 200,
+    "requestHeaders" : {
+      "accept" : "application/json, text/event-stream",
+      "content-type" : "application/json; charset=utf-8",
+      "mcp-protocol-version" : "2025-11-25",
+      "mcp-session-id" : "00000000-0000-4000-8000-000000000001"
+    },
+    "requestBody" : "{\"id\":\"00000010-1\",\"jsonrpc\":\"2.0\",\"method\":\"tools/call\",\"params\":{\"arguments\":{\"city\":\"Oslo\"},\"name\":\"temperature\"}}",
+    "responseHeaders" : {
+      "content-type" : "text/event-stream;charset=UTF-8"
+    },
+    "responseBody" : "id: 00000000-0000-4000-8000-000000000001\nevent: message\ndata:{\"id\":\"00000010-1\",\"jsonrpc\":\"2.0\",\"result\":{\"content\":[{\"text\":\"12.0\",\"type\":\"text\"}],\"isError\":false}}\n\n",
+    "durationMs" : 0,
+    "complete" : true
+  }, {
+    "seq" : 8,
+    "protocol" : "UTCP",
+    "direction" : "request",
+    "method" : "POST",
+    "path" : "/utcp/tools/temperature",
+    "status" : 200,
+    "requestHeaders" : {
+      "content-type" : "application/json"
+    },
+    "requestBody" : "{\"city\":\"Oslo\"}",
+    "responseHeaders" : {
+      "content-type" : "text/plain;charset=UTF-8"
+    },
+    "responseBody" : "12.0",
+    "durationMs" : 0,
+    "complete" : true
+  }, {
+    "seq" : 9,
+    "protocol" : "RAP",
+    "direction" : "request",
+    "method" : "POST",
+    "path" : "/rap/invoke",
+    "status" : 200,
+    "requestHeaders" : {
+      "accept" : "application/json",
+      "content-type" : "application/json"
+    },
+    "requestBody" : "{\"arguments\":{\"city\":\"Oslo\"},\"call_id\":null,\"callback_url\":\"http://localhost:8080/rap/callback/token-9\",\"group_id\":\"pw-00000000000000000000000000000007\",\"id\":\"pw_00000000000000000000000000000008\",\"operation\":\"temperature\"}",
+    "responseHeaders" : { },
+    "responseBody" : "",
+    "durationMs" : 0,
+    "complete" : true
+  }, {
+    "seq" : 10,
+    "protocol" : "RAP",
+    "direction" : "callback",
+    "method" : "POST",
+    "path" : "/rap/callback/token-9",
+    "status" : 200,
+    "requestHeaders" : {
+      "content-type" : "application/json"
+    },
+    "requestBody" : "{\"group_id\":\"pw-00000000000000000000000000000007\",\"id\":\"pw_00000000000000000000000000000008\",\"text\":\"12.0\",\"type\":\"tool_result\"}",
+    "responseHeaders" : { },
+    "responseBody" : "",
+    "durationMs" : 0,
+    "complete" : true
+  }, {
+    "seq" : 11,
+    "protocol" : "A2A",
+    "direction" : "request",
+    "method" : "POST",
+    "path" : "/a2a",
+    "status" : 200,
+    "requestHeaders" : {
+      "a2a-version" : "1.0",
+      "content-type" : "application/json"
+    },
+    "requestBody" : "{\"id\":\"00000000-0000-4000-8000-000000000002\",\"jsonrpc\":\"2.0\",\"method\":\"SendMessage\",\"params\":{\"configuration\":{\"acceptedOutputModes\":[],\"returnImmediately\":false},\"message\":{\"contextId\":\"\",\"extensions\":[],\"messageId\":\"00000000-0000-4000-8000-000000000003\",\"metadata\":{},\"parts\":[{\"filename\":\"\",\"mediaType\":\"\",\"metadata\":{},\"text\":\"What's the temperature in Oslo?\"}],\"referenceTaskIds\":[],\"role\":\"ROLE_USER\",\"taskId\":\"\"},\"metadata\":{},\"tenant\":\"\"}}",
+    "responseHeaders" : {
+      "content-type" : "application/json"
+    },
+    "responseBody" : "{\"id\":\"00000000-0000-4000-8000-000000000002\",\"jsonrpc\":\"2.0\",\"result\":{\"task\":{\"artifacts\":[{\"artifactId\":\"00000000-0000-4000-8000-000000000004\",\"description\":\"\",\"extensions\":[],\"metadata\":{},\"name\":\"response\",\"parts\":[{\"filename\":\"\",\"mediaType\":\"\",\"metadata\":{},\"text\":\"It's 12.0 °C in Oslo right now.\"}]}],\"contextId\":\"00000000-0000-4000-8000-000000000005\",\"history\":[{\"contextId\":\"00000000-0000-4000-8000-000000000005\",\"extensions\":[],\"messageId\":\"00000000-0000-4000-8000-000000000003\",\"metadata\":{},\"parts\":[{\"filename\":\"\",\"mediaType\":\"\",\"metadata\":{},\"text\":\"What's the temperature in Oslo?\"}],\"referenceTaskIds\":[],\"role\":\"ROLE_USER\",\"taskId\":\"00000000-0000-4000-8000-000000000006\"}],\"id\":\"00000000-0000-4000-8000-000000000006\",\"metadata\":{},\"status\":{\"state\":\"TASK_STATE_COMPLETED\",\"timestamp\":\"2026-01-01T00:00:00Z\"}}}}",
+    "durationMs" : 0,
+    "complete" : true
+  }, {
+    "seq" : 12,
+    "protocol" : "MCP",
+    "direction" : "request",
+    "method" : "DELETE",
+    "path" : "/mcp",
+    "status" : 200,
+    "requestHeaders" : {
+      "mcp-protocol-version" : "2025-11-25",
+      "mcp-session-id" : "00000000-0000-4000-8000-000000000001"
+    },
+    "requestBody" : "",
+    "responseHeaders" : { },
+    "responseBody" : "",
+    "durationMs" : 0,
+    "complete" : true
+  } ],
+  "compliance" : [ {
+    "protocol" : "MCP",
+    "sdk" : "io.modelcontextprotocol.sdk:mcp 2.1.0",
+    "wireRevisions" : [ "2025-03-26", "2025-06-18", "2025-11-25" ],
+    "negotiated" : "2025-11-25",
+    "supported" : [ "completion", "content/audio", "content/image", "content/resource", "content/resource-link", "content/text", "lifecycle/version-negotiation", "logging", "progress", "prompts", "prompts/list-changed", "resources", "resources/list-changed", "resources/subscribe", "tools/call", "tools/list", "tools/list-changed", "tools/structured-output", "transport/streamable-http" ],
+    "unsupported" : [ "authorization", "cancellation", "elicitation", "roots", "sampling", "transport/sse", "transport/stateless-http", "transport/stdio" ]
+  }, {
+    "protocol" : "UTCP",
+    "sdk" : "Protoweft 0.1.0-SNAPSHOT, from the spec",
+    "wireRevisions" : [ "1.0", "1.1" ],
+    "negotiated" : "1.1.0",
+    "supported" : [ "auth/api_key", "auth/basic", "auth/oauth2", "call-template/http", "call-template/text", "manual/allowed-communication-protocols", "manual/file", "manual/http", "manual/text", "search/tag_and_description_word_match", "security/https-or-loopback", "variables/dotenv-loader", "variables/substitution" ],
+    "unsupported" : [ "auth/auth_tools", "call-template/cli", "call-template/file", "call-template/graphql", "call-template/mcp", "call-template/sse", "call-template/streamable_http", "call-template/tcp", "call-template/udp", "call-template/websocket", "client/call-tool-streaming", "client/post-processing", "manual/openapi-conversion", "manual/yaml", "search/in_mem_embeddings" ]
+  }, {
+    "protocol" : "A2A",
+    "sdk" : "org.a2aproject.sdk:a2a-java-sdk-client 1.5.0.Final",
+    "wireRevisions" : [ "1.0" ],
+    "negotiated" : "1.0",
+    "supported" : [ "auth/static-credentials", "binding/jsonrpc", "content/data", "content/file-bytes", "content/file-uri", "content/text", "discovery/agent-card", "discovery/extended-agent-card", "operation/cancel-task", "operation/get-task", "operation/send-message", "operation/send-streaming-message", "operation/subscribe-to-task", "tasks/multi-turn" ],
+    "unsupported" : [ "auth/security-schemes", "binding/grpc", "binding/http-json", "discovery/card-signatures", "extensions", "multi-tenancy", "operation/list-tasks", "push-notifications" ]
+  }, {
+    "protocol" : "RAP",
+    "sdk" : "Protoweft 0.1.0-SNAPSHOT, from the spec",
+    "wireRevisions" : [ "infinity@e1a3e4b" ],
+    "negotiated" : "infinity@e1a3e4b",
+    "supported" : [ "oauth", "subscription_event", "thread_closure", "tool/invocation", "tool_cancellation", "tool_result/content", "tool_result/text", "toolset/discovery", "user_choice" ],
+    "unsupported" : [ "migration", "tool_result/display_as", "toolset/display_script", "view_update" ]
+  } ]
+}
