@@ -33,7 +33,9 @@ export OPENAI_MODEL=gpt-4o-mini       # optional; this is the default
 ```
 
 The app listens on port 8080; use `--server.port=…` to change it. For an OpenAI-compatible
-server, such as Ollama, set `spring.ai.openai.base-url`.
+server, such as Ollama, set `spring.ai.openai.base-url` to its URL including `/v1`
+(`http://localhost:11434/v1`); see
+[Using an OpenAI-compatible server](../README.md#using-an-openai-compatible-server).
 
 ## Try it
 
