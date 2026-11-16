@@ -58,7 +58,8 @@ function show(id: string) {
   chat = null;
   const slot = $("chapter").querySelector<HTMLElement>(".chat-slot");
   if (slot) mountChat(slot);
-  clearPanel(`Press ▶ Run on a step to see its ${current.protocol || "protocol"} traffic here.`);
+  const single = current.protocol && !current.protocol.startsWith("all");   // the intro and finale cover all of them
+  clearPanel(`Press ▶ Run on a step to see ${single ? `its ${current.protocol}` : "the"} traffic here.`);
 }
 
 function mountChat(slot: HTMLElement) {
