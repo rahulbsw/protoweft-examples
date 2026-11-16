@@ -51,8 +51,8 @@ them (curl, the MCP Inspector, and so on).
 
 ## Using an OpenAI-compatible server
 
-The LLM-backed examples use OpenAI's API, so any OpenAI-compatible server works: Ollama, LiteLLM,
-vLLM, an LLM router, and so on. Set the base URL **including `/v1`**:
+The LLM-backed examples use OpenAI's API, so any OpenAI-compatible API works: a hosted service, or a
+model server you run yourself, such as Ollama. Set the base URL **including `/v1`**:
 
 ```bash
 export OPENAI_API_KEY=...                          # whatever the server expects (any value for Ollama)
