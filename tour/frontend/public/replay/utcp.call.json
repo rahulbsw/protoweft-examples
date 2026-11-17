@@ -39,7 +39,7 @@
   } ],
   "compliance" : [ {
     "protocol" : "UTCP",
-    "sdk" : "Protoweft 0.1.0-SNAPSHOT, from the spec",
+    "sdk" : "Protoweft 1.0.0, from the spec",
     "wireRevisions" : [ "1.0", "1.1" ],
     "negotiated" : "1.1.0",
     "supported" : [ "auth/api_key", "auth/basic", "auth/oauth2", "call-template/http", "call-template/text", "manual/allowed-communication-protocols", "manual/file", "manual/http", "manual/text", "search/tag_and_description_word_match", "security/https-or-loopback", "variables/dotenv-loader", "variables/substitution" ],

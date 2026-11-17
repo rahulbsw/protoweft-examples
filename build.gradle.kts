@@ -10,7 +10,8 @@ subprojects {
     version = "0.1.0-SNAPSHOT"
 
     repositories {
-        // Protoweft snapshots (published from protoweft's main branch) until a release is on Maven Central.
+        // Protoweft snapshots (published from protoweft's main branch), for -PprotoweftVersion=<x>-SNAPSHOT.
+        // Releases come from Maven Central.
         maven("https://central.sonatype.com/repository/maven-snapshots/") {
             content { includeGroup("io.github.rahulbsw") }
             mavenContent { snapshotsOnly() }
@@ -35,7 +36,7 @@ subprojects {
     // Security floor: ARGI pulls jsoup 1.15.4 transitively (GHSA-65r4-943x-97jj, GHSA-pmhh-3w7g-xqp8).
     val jsoupVersion = property("jsoupVersion")
     configurations.configureEach {
-        // Always resolve the latest Protoweft snapshot (snapshots are the only changing modules here).
+        // With a snapshot version, always resolve the latest one (snapshots are the only changing modules here).
         resolutionStrategy.cacheChangingModulesFor(0, "seconds")
         resolutionStrategy.dependencySubstitution {
             substitute(module("org.jsoup:jsoup")).using(module("org.jsoup:jsoup:$jsoupVersion"))
