@@ -13,6 +13,8 @@ dependencies {
     // The starter scans @AgentTool beans and serves the AgentHandler bean over AG-UI.
     implementation("io.github.rahulbsw:protoweft-spring-boot-starter")
     implementation("io.github.rahulbsw:protoweft-agui")
+    // Lets protoweft.mcp.clients add MCP servers' tools to the agent (see README).
+    implementation("io.github.rahulbsw:protoweft-mcp")
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
     // Any Spring AI chat model works; OpenAI's also talks to OpenAI-compatible servers (e.g. Ollama).
     implementation("org.springframework.ai:spring-ai-starter-model-openai:$springAiVersion")
