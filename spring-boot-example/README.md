@@ -19,7 +19,7 @@ served over **A2A**. All the wiring comes from `protoweft-spring-boot-starter` a
 ./gradlew :spring-boot-example:bootRun
 # or
 ./gradlew :spring-boot-example:bootJar
-java -jar spring-boot-example/build/libs/spring-boot-example-*.jar
+java -jar spring-boot-example/build/libs/spring-boot-example-0.1.0-SNAPSHOT.jar
 ```
 
 The app listens on port 8080. Use `--server.port=…` to change the port and
