@@ -153,7 +153,7 @@
     "unsupported" : [ "authorization", "cancellation", "elicitation", "roots", "sampling", "transport/sse", "transport/stateless-http", "transport/stdio" ]
   }, {
     "protocol" : "UTCP",
-    "sdk" : "Protoweft 0.1.0-SNAPSHOT, from the spec",
+    "sdk" : "Protoweft 1.0.0, from the spec",
     "wireRevisions" : [ "1.0", "1.1" ],
     "negotiated" : "1.1.0",
     "supported" : [ "auth/api_key", "auth/basic", "auth/oauth2", "call-template/http", "call-template/text", "manual/allowed-communication-protocols", "manual/file", "manual/http", "manual/text", "search/tag_and_description_word_match", "security/https-or-loopback", "variables/dotenv-loader", "variables/substitution" ],
@@ -167,14 +167,14 @@
     "unsupported" : [ "auth/security-schemes", "binding/grpc", "binding/http-json", "discovery/card-signatures", "extensions", "multi-tenancy", "operation/list-tasks", "push-notifications" ]
   }, {
     "protocol" : "RAP",
-    "sdk" : "Protoweft 0.1.0-SNAPSHOT, from the spec",
+    "sdk" : "Protoweft 1.0.0, from the spec",
     "wireRevisions" : [ "infinity@e1a3e4b" ],
     "negotiated" : "infinity@e1a3e4b",
     "supported" : [ "oauth", "subscription_event", "thread_closure", "tool/invocation", "tool_cancellation", "tool_result/content", "tool_result/text", "toolset/discovery", "user_choice" ],
     "unsupported" : [ "migration", "tool_result/display_as", "toolset/display_script", "view_update" ]
   }, {
     "protocol" : "AG-UI",
-    "sdk" : "Protoweft 0.1.0-SNAPSHOT, from the spec",
+    "sdk" : "Protoweft 1.0.0, from the spec",
     "wireRevisions" : [ "1.0" ],
     "negotiated" : "1.0",
     "supported" : [ "binding/http-protobuf", "binding/http-sse", "chunk-expansion", "events/activity", "events/passthrough", "events/reasoning", "events/runs-and-steps", "events/state", "events/subagents", "events/text-messages", "events/tool-calls", "frontend-tools", "interrupt-resume", "protoweft/capabilities-endpoint", "protoweft/tool-bridge", "version-negotiation" ],

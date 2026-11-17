@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-  # Protoweft snapshots change with every push to protoweft's main: build daily against the latest.
+  # Daily, to catch changes in the dependencies and services the examples use.
   schedule:
     - cron: '17 6 * * *'
   workflow_dispatch:

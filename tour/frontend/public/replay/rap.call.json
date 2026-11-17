@@ -55,7 +55,7 @@
   } ],
   "compliance" : [ {
     "protocol" : "RAP",
-    "sdk" : "Protoweft 0.1.0-SNAPSHOT, from the spec",
+    "sdk" : "Protoweft 1.0.0, from the spec",
     "wireRevisions" : [ "infinity@e1a3e4b" ],
     "negotiated" : "infinity@e1a3e4b",
     "supported" : [ "oauth", "subscription_event", "thread_closure", "tool/invocation", "tool_cancellation", "tool_result/content", "tool_result/text", "toolset/discovery", "user_choice" ],

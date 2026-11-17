@@ -72,20 +72,16 @@ waits 60 seconds for the whole answer, and a tool round is at least two model ca
 
 ## Protoweft version
 
-The examples use `protoweft-bom` at the version in [`gradle.properties`](gradle.properties)
-(`protoweftVersion`). Until Protoweft's first release is on Maven Central that is
-`0.1.0-SNAPSHOT`, resolved from the Central Portal snapshot repository, which Protoweft's `main`
-branch publishes on every push. CI here builds daily against the latest snapshot.
-
-To build against another version, or against a Protoweft checkout you installed with
-`./gradlew publishToMavenLocal`:
+The examples use `protoweft-bom` **1.0.0** from Maven Central, the version in
+[`gradle.properties`](gradle.properties) (`protoweftVersion`). To build against another release, or a
+snapshot of Protoweft's `main` (published to the Central Portal snapshot repository on every push):
 
 ```bash
-./gradlew build -PprotoweftVersion=0.1.0
+./gradlew build -PprotoweftVersion=1.0.1-SNAPSHOT
 ```
 
-For a local install, also add `mavenLocal()` to the `repositories` block in
-[`build.gradle.kts`](build.gradle.kts).
+To build against a Protoweft checkout you installed with `./gradlew publishToMavenLocal`, also add
+`mavenLocal()` to the `repositories` block in [`build.gradle.kts`](build.gradle.kts).
 
 ## Learn more
 
