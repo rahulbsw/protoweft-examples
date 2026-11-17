@@ -3,6 +3,10 @@
 Runnable examples for [Protoweft](https://github.com/rahulbsw/protoweft), the protocol backbone
 for Java agents: MCP, A2A, UTCP, RAP and AG-UI behind one protocol-neutral Java 17 API.
 
+> ⭐ Found these examples useful? Star [Protoweft](https://github.com/rahulbsw/protoweft) and
+> [Protoweft examples](https://github.com/rahulbsw/protoweft-examples) on GitHub.
+> It helps others discover the projects!
+
 Unlike the examples inside the Protoweft repository, these build against the **published**
 artifacts, the way your own project would. The examples share the root build (`build.gradle.kts`,
 `gradle.properties`); to start a project of your own, copy this repository and keep the examples
