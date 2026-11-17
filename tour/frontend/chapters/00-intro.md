@@ -10,6 +10,10 @@ Agents talk to tools, to other agents and to people, and each of those has its o
 
 This tour runs one small Spring Boot app that serves the same weather tools and the same agent over five protocols. Each chapter calls it the way a real client would, with Protoweft's own connectors, and the panel on the right shows **the real HTTP traffic** of every step.
 
+> ⭐ Found these examples useful? Star [Protoweft](https://github.com/rahulbsw/protoweft) and
+> [Protoweft examples](https://github.com/rahulbsw/protoweft-examples) on GitHub.
+> It helps others discover the projects!
+
 <div class="map">
   <div class="mcp"><b>MCP</b>models ↔ tools</div>
   <div class="utcp"><b>UTCP</b>tools described, called directly</div>
